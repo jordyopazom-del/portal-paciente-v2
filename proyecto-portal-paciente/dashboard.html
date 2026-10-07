@@ -189,6 +189,10 @@
     </main>
 
     <script>
+        // Si el navegador muestra una copia guardada al volver atrás, se recarga para verificar la sesión.
+        window.addEventListener('pageshow', (e) => { if (e.persisted) window.location.reload(); });
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Preguntamos al servidor quién es el usuario (cookie de sesión segura).
             // Sin sesión válida, se envía al login.
