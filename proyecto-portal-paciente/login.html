@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso Portal Paciente - CESFAM Belarmina Paredes</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cesfam: {
+                            blue: '#005baa',
+                            green: '#00a650',
+                            light: '#f0f9ff'
+                        },
+                        // Colores oficiales ClaveÚnica
+                        claveunica: {
+                            blue: '#0F69B4',
+                            hover: '#0A4A80'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 font-sans min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
+
+    <!-- Fondo decorativo -->
+    <div class="absolute top-0 left-0 w-full h-1/2 bg-cesfam-blue transform -skew-y-3 origin-top-left -z-10 shadow-lg"></div>
+    <div class="absolute top-0 right-0 w-64 h-64 bg-cesfam-green rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 animate-blob"></div>
+    
+    <!-- Contenedor Principal -->
+    <div class="w-full max-w-md px-4 sm:px-0 z-10">
+        
+        <!-- Logo y Vuelta atrás -->
+        <div class="text-center mb-8">
+            <a href="index.html" class="inline-block bg-white p-3 rounded-2xl shadow-md mb-6 hover:shadow-lg transition-shadow">
+                <img src="logo.png" alt="Logo CESFAM" class="h-16 w-auto mx-auto object-contain">
+            </a>
+            <h1 class="text-3xl font-heading font-extrabold text-white mb-2">Portal Paciente</h1>
+            <p class="text-blue-100">Accede a tus exámenes, OIRS e inscripciones.</p>
+        </div>
+
+        <!-- Caja de Login -->
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+            <div class="p-8">
+                
+                <!-- Botón ClaveÚnica -->
+                <button id="btn-claveunica" class="w-full bg-claveunica-blue hover:bg-claveunica-hover text-white rounded-xl py-3 px-4 font-semibold text-lg flex items-center justify-center gap-3 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-claveunica-blue">
+                    <img src="https://accounts.claveunica.gob.cl/assets/img/iconos/cu.svg" alt="Icono ClaveÚnica" class="h-6 w-auto invert">
+                    <span>Ingresar con ClaveÚnica</span>
+                </button>
+
+                <div class="mt-4 bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-blue-800 text-center">
+                    <i class="fas fa-shield-alt mr-1"></i> Forma de acceso recomendada y segura.
+                </div>
+
+                <!-- Divisor -->
+                <div class="relative my-8">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-slate-400 font-medium">O usa tu acceso local</span>
+                    </div>
+                </div>
+
+                <!-- Formulario RUT (Alternativo/Fallback) -->
+                <form id="login-form" class="space-y-5">
+                    <div>
+                        <label for="rut" class="block text-sm font-medium text-slate-700 mb-1">RUT</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-id-card text-slate-400"></i>
+                            </div>
+                            <input type="text" id="rut" name="rut" placeholder="12.345.678-9" class="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cesfam-blue focus:border-cesfam-blue transition-colors text-slate-900 bg-slate-50 focus:bg-white" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label for="password" class="block text-sm font-medium text-slate-700">Contraseña</label>
+                            <a href="#" class="text-xs font-medium text-cesfam-blue hover:text-blue-800">¿Olvidaste tu clave?</a>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-slate-400"></i>
+                            </div>
+                            <input type="password" id="password" name="password" placeholder="••••••••" class="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cesfam-blue focus:border-cesfam-blue transition-colors text-slate-900 bg-slate-50 focus:bg-white" required>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="window.location.href='dashboard.html'" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-3 px-4 rounded-xl transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900">
+                        Ingresar
+                    </button>
+                </form>
+
+            </div>
+            
+            <!-- Link a Inscripción -->
+            <div class="bg-slate-50 p-6 border-t border-slate-100 text-center">
+                <p class="text-sm text-slate-600">
+                    ¿No estás inscrito en nuestro CESFAM? 
+                    <br>
+                    <a href="#" class="font-bold text-cesfam-blue hover:underline mt-1 inline-block">Solicitar inscripción online</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-sm text-blue-100 hover:text-white flex items-center justify-center gap-2">
+                <i class="fas fa-arrow-left"></i> Volver a la página principal
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Script de prueba para el botón ClaveÚnica -->
+    <script>
+        document.getElementById('btn-claveunica').addEventListener('click', function() {
+            // Redirige a la función Serverless de Vercel que armará la conexión segura
+            window.location.href = '/api/auth/login';
+        });
+    </script>
+</body>
+</html>

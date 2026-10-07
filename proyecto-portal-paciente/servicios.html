@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios y Programas - CESFAM Belarmina Paredes</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cesfam: {
+                            blue: '#005baa',
+                            green: '#00a650',
+                            light: '#f0f9ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 bg-slate-50 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="logo.png" alt="Logo CESFAM" class="h-16 w-auto object-contain">
+                    <div class="flex flex-col hidden sm:flex">
+                        <span class="text-xl font-heading font-bold text-cesfam-blue leading-tight">CESFAM</span>
+                        <span class="text-sm font-heading font-semibold text-cesfam-green leading-tight">Belarmina Paredes</span>
+                    </div>
+                </a>
+
+                <button id="nav-toggle" class="md:hidden text-2xl text-slate-600 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Inicio</a>
+                    <a href="institucion.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Institución</a>
+                    <a href="servicios.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors border-b-2 border-cesfam-blue pb-1">Servicios</a>
+                    <a href="sectores.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Sectores</a>
+                    
+                    <a href="oirs.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">OIRS</a>
+                    
+                    <a href="https://intranet.cesfamfutrono.net" class="flex items-center gap-2 bg-cesfam-blue text-white px-5 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-all shadow-md transform hover:-translate-y-0.5">
+                        <i class="fas fa-lock text-sm"></i> Acceso Funcionarios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menú Móvil -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 shadow-lg absolute w-full z-40">
+        <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+            <a href="index.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Inicio</a>
+            <a href="institucion.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Institución</a>
+            <a href="servicios.html" class="block px-3 py-3 text-cesfam-blue font-bold border-b border-slate-100 bg-blue-50 rounded-t-lg">Servicios</a>
+            <a href="sectores.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Sectores</a>
+            
+            <a href="oirs.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">OIRS</a>
+            <a href="https://intranet.cesfamfutrono.net" class="mt-4 flex justify-center items-center gap-2 bg-cesfam-blue text-white px-4 py-3 rounded-xl font-medium shadow-md">
+                <i class="fas fa-lock"></i> Acceso Funcionarios
+            </a>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="bg-gradient-to-r from-cesfam-blue to-blue-800 text-white py-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')] opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">Servicios e Informaciones</h1>
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto">Conoce los horarios, requisitos y detalles de nuestros principales servicios para la comunidad.</p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <!-- TeleSalud (Destacado) -->
+            <div class="bg-gradient-to-r from-teal-500 to-teal-700 rounded-3xl p-8 md:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold mb-4 flex items-center gap-3">
+                        <i class="fas fa-laptop-medical"></i> Portal TeleSalud
+                    </h2>
+                    <p class="text-teal-50 text-lg max-w-2xl">Realiza tus solicitudes de atención, revisión de exámenes y consultas de forma online y segura desde tu hogar. Rápido, fácil y sin filas.</p>
+                </div>
+                <a href="https://telesalud.gob.cl/" target="_blank" class="shrink-0 bg-white text-teal-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-teal-50 transition-colors shadow-lg flex items-center gap-2">
+                    Ingresar a TeleSalud <i class="fas fa-external-link-alt text-sm"></i>
+                </a>
+            </div>
+
+            <!-- Grilla de Servicios -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- 1. Inscripción -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                    <div class="flex items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-cesfam-blue text-xl">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-800">Inscripción en CESFAM</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-700">Requisitos Básicos:</h4>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-1">
+                            <li>Cédula de Identidad</li>
+                            <li>Estar afiliado a FONASA</li>
+                            <li>Formulario Fonasa firmado (si se inscribe en Posta Rural)</li>
+                            <li>Certificado de nacimiento (para niños y recién nacidos)</li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-slate-700 mt-4">Documentos de Residencia (presentar UNO):</h4>
+                        <ul class="list-disc pl-5 text-slate-600 space-y-1">
+                            <li>Contrato de arriendo o trabajo</li>
+                            <li>Declaración Jurada de Residencia</li>
+                            <li>Registro Social de Hogares</li>
+                            <li>Certificado de residencia (Junta de vecinos)</li>
+                            <li>Boleta de servicios (agua, luz) a nombre del usuario</li>
+                        </ul>
+
+                        <div class="bg-slate-50 p-4 rounded-xl mt-4 text-sm">
+                            <span class="font-bold text-slate-700">¿Inscribir a un tercero?</span> Debe traer un poder simple o notarial.
+                        </div>
+
+                        <div class="mt-4">
+                            <h4 class="font-bold text-cesfam-blue">Horarios para inscripción:</h4>
+                            <div class="grid grid-cols-2 gap-4 mt-2 text-sm">
+                                <div>
+                                    <span class="block font-bold text-slate-700">Lunes a Jueves</span>
+                                    <span class="text-slate-600">08:00 - 13:00 hrs<br>14:00 - 16:30 hrs</span>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-700">Viernes</span>
+                                    <span class="text-slate-600">08:00 - 13:00 hrs<br>14:00 - 15:30 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Farmacia -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                    <div class="flex items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-xl">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-800">Farmacia y Punto de Entrega</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-red-50 text-red-800 p-4 rounded-xl text-sm font-medium border border-red-100">
+                            "Recuerda: Debes presentar tu Cédula de Identidad y Carnet de Control al momento de solicitar hora o retirar medicamentos."
+                        </div>
+
+                        <h4 class="font-bold text-slate-700">Horarios de Farmacia:</h4>
+                        <div class="flex justify-between text-sm border-b border-slate-100 pb-2">
+                            <span>Lunes a Viernes</span>
+                            <span class="font-medium text-slate-800">08:00 a 20:00 hrs</span>
+                        </div>
+                        <div class="flex justify-between text-sm mb-4">
+                            <span>Sábado</span>
+                            <span class="font-medium text-slate-800">09:00 a 13:00 hrs</span>
+                        </div>
+
+                        <h4 class="font-bold text-cesfam-blue mt-6 border-t border-slate-100 pt-4">Punto de Entrega (Gestión Territorial)</h4>
+                        <p class="text-sm text-slate-600 mb-2">Ingresamos y gestionamos el traslado de medicamentos de otros centros:</p>
+                        <ul class="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-4">
+                            <li>Hospital Base Valdivia</li>
+                            <li>Centro Raíces Paillaco</li>
+                            <li>Cuidados Paliativos Oncológicos</li>
+                        </ul>
+                        
+                        <div class="bg-blue-50 p-3 rounded-lg text-sm text-blue-800">
+                            <i class="fas fa-truck-medical mr-1"></i> Los medicamentos externos se entregan <strong>cada jueves por la tarde</strong>. (Si es feriado, pasa al siguiente día hábil).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Vacunatorio -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                    <div class="flex items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-cesfam-blue text-xl">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-800">Vacunatorio</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <p class="text-sm text-slate-600 mb-4">Las vacunas del Programa Nacional de Inmunizaciones (PNI) son <strong>obligatorias</strong> para los grupos objetivo: Lactantes, Niños, Gestantes, Adultos Mayores y enfermos crónicos.</p>
+
+                        <h4 class="font-bold text-slate-700">Horarios de Atención:</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2 text-sm">
+                            <div class="bg-slate-50 p-3 rounded-lg">
+                                <span class="block font-bold text-slate-700">Lunes a Jueves</span>
+                                <span class="text-slate-600">08:30 a 12:00 hrs<br>14:00 a 16:00 hrs</span>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-lg">
+                                <span class="block font-bold text-slate-700">Viernes</span>
+                                <span class="text-slate-600">08:30 a 12:00 hrs<br>14:00 a 15:00 hrs</span>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-lg sm:col-span-2">
+                                <span class="block font-bold text-slate-700">Sábado</span>
+                                <span class="text-slate-600">08:30 a 12:30 hrs</span>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4 text-cesfam-blue font-bold text-lg italic">
+                            "¡Protégete y protege a tu comunidad!"
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Entrega de Alimentos -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                    <div class="flex items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-500 text-xl">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-slate-800">Entrega de Alimentos (PNAC/PACAM)</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-700">Horarios de Entrega:</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2 text-sm">
+                            <div>
+                                <span class="block font-bold text-slate-700">Lunes a Jueves</span>
+                                <span class="text-slate-600">09:00 a 13:00 hrs<br>14:00 a 16:20 hrs</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-slate-700">Viernes</span>
+                                <span class="text-slate-600">09:00 a 13:00 hrs<br>14:00 a 15:20 hrs</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
+                            <p class="text-sm font-bold text-yellow-800 flex items-center gap-2 mb-2">
+                                <i class="fas fa-exclamation-triangle"></i> Importante
+                            </p>
+                            <ul class="text-sm text-yellow-800 space-y-2">
+                                <li>• El <strong>último día hábil del mes</strong> se encuentra CERRADO por estadística.</li>
+                                <li>• Para retirar, debe tener sus <strong>controles de salud y vacunas al día</strong>.</li>
+                                <li class="font-black text-red-600 bg-white inline-block px-2 py-1 rounded">LA ENTREGA NO ES RETROACTIVA</li>
+                            </ul>
+                        </div>
+                        <p class="text-xs text-slate-500 italic mt-2">*Si decide no vacunarse, debe entregar el certificado de consentimiento correspondiente.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Cartera Completa de Prestaciones (desde PDF) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">¿A qué puedo acceder?</h2>
+                <div class="w-20 h-1 bg-cesfam-blue mx-auto rounded-full mb-6"></div>
+                <p class="text-slate-600 text-lg max-w-3xl mx-auto">
+                    Brindamos atención médica primaria, prevención, controles de salud y entrega de medicamentos a la comunidad inscrita. 
+                    <strong>Si tu CECOSF o Posta de salud no cuenta con alguna de las prestaciones, serás derivado a nuestro CESFAM.</strong>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Profesionales -->
+                <div class="bg-blue-50 rounded-2xl p-6 border border-blue-100">
+                    <h3 class="text-xl font-bold font-heading text-cesfam-blue mb-4 bg-white px-4 py-2 rounded-xl shadow-sm text-center">Profesionales</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Médico/a</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Enfermero/a</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Matrón/a</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Odontólogo/a</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Nutricionista</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Terapeuta Ocupacional</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Educador/a de Párvulos</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Kinesiólogo/a (respiratorio y motor)</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Psicólogo/a</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Asistente Social</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Podólogo/a</li>
+                        <li><i class="fas fa-circle text-[8px] text-blue-400 mr-2"></i>Fonoaudiólogo/a</li>
+                    </ul>
+                </div>
+
+                <!-- Imagenología -->
+                <div class="bg-teal-50 rounded-2xl p-6 border border-teal-100">
+                    <h3 class="text-xl font-bold font-heading text-teal-700 mb-4 bg-white px-4 py-2 rounded-xl shadow-sm text-center">Imagenología y Procedimientos</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Toma de muestras (sangre, orina, urocultivo)</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Papanicolaou (PAP)</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Ecografías obstétricas (embarazadas)</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Operativos mamografías y ecografías</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Radiografía osteopulmonar</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Radiografía dental</li>
+                        <li><i class="fas fa-circle text-[8px] text-teal-400 mr-2"></i>Espirometría - Test de marcha</li>
+                    </ul>
+                </div>
+
+                <!-- Procedimientos Médicos -->
+                <div class="bg-sky-50 rounded-2xl p-6 border border-sky-100">
+                    <h3 class="text-xl font-bold font-heading text-sky-700 mb-4 bg-white px-4 py-2 rounded-xl shadow-sm text-center">Procedimientos Médicos</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Vacunatorio</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Administración de medicamentos</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Curaciones (simples y avanzadas)</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Retiro de puntos y Cambio de sonda</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Lavado de oídos</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Cirugía menor</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Electrocardiograma (ECG)</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Kinesioterapia respiratoria</li>
+                        <li><i class="fas fa-circle text-[8px] text-sky-400 mr-2"></i>Podología (pie diabético)</li>
+                    </ul>
+                </div>
+
+                <!-- Programas de Salud -->
+                <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
+                    <h3 class="text-xl font-bold font-heading text-purple-700 mb-4 bg-white px-4 py-2 rounded-xl shadow-sm text-center">Programas de Salud</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li><i class="fas fa-circle text-[8px] text-purple-400 mr-2"></i>Exámenes preventivos (EMPA, EMPAM, CLAP)</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-400 mr-2"></i>Controles (infantil, mujer, cardiovascular)</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-400 mr-2"></i>Controles respiratorios y patologías crónicas</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-400 mr-2"></i>Salud mental y Controles odontológicos</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-400 mr-2"></i>Programa de Atención Domiciliaria (PAD)</li>
+                        <li><i class="fas fa-circle text-[8px] text-purple-400 mr-2"></i>Prestaciones GES y seguimiento de listas</li>
+                    </ul>
+                </div>
+
+                <!-- Otros Programas -->
+                <div class="bg-orange-50 rounded-2xl p-6 border border-orange-100 lg:col-span-2">
+                    <h3 class="text-xl font-bold font-heading text-orange-700 mb-4 bg-white px-4 py-2 rounded-xl shadow-sm text-center">Otros Programas</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700">
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Chile Crece Contigo y Estimulación</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Prog. Alimentación (PNAC / PACAM)</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Espacios Amigables</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Promoción de Salud (Más Salud / Más AMA)</li>
+                        </ul>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Clínica Dental (odontológicos y ortodoncia)</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Sala de Rehabilitación Integral (CCR)</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Salud Intercultural</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Resolutividad (endoscopías / especialidad)</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Cuidados Paliativos</li>
+                            <li><i class="fas fa-circle text-[8px] text-orange-400 mr-2"></i>Programa Médico JUNAEB</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Simple (Mismo de Sectores) -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+        <p>&copy; 2026 CESFAM Belarmina Paredes - Futrono. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

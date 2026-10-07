@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sectores y Cobertura - CESFAM Belarmina Paredes</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cesfam: {
+                            blue: '#005baa',
+                            green: '#00a650',
+                            light: '#f0f9ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 bg-slate-50 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="logo.png" alt="Logo CESFAM" class="h-16 w-auto object-contain">
+                    <div class="flex flex-col hidden sm:flex">
+                        <span class="text-xl font-heading font-bold text-cesfam-blue leading-tight">CESFAM</span>
+                        <span class="text-sm font-heading font-semibold text-cesfam-green leading-tight">Belarmina Paredes</span>
+                    </div>
+                </a>
+
+                <button id="nav-toggle" class="md:hidden text-2xl text-slate-600 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Inicio</a>
+                    <a href="institucion.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Institución</a>
+                    <a href="servicios.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Servicios</a>
+                    <a href="sectores.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors border-b-2 border-cesfam-blue pb-1">Sectores</a>
+                    
+                    <a href="oirs.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">OIRS</a>
+                    
+                    <a href="https://intranet.cesfamfutrono.net" class="flex items-center gap-2 bg-cesfam-blue text-white px-5 py-2.5 rounded-full font-medium hover:bg-blue-700 transition-all shadow-md transform hover:-translate-y-0.5">
+                        <i class="fas fa-lock text-sm"></i> Acceso Funcionarios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menú Móvil -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 shadow-lg absolute w-full z-40">
+        <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+            <a href="index.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Inicio</a>
+            <a href="institucion.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Institución</a>
+            <a href="servicios.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Servicios</a>
+            <a href="sectores.html" class="block px-3 py-3 text-cesfam-blue font-bold border-b border-slate-100 bg-blue-50 rounded-t-lg">Sectores</a>
+            
+            <a href="oirs.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">OIRS</a>
+            <a href="https://intranet.cesfamfutrono.net" class="mt-4 flex justify-center items-center gap-2 bg-cesfam-blue text-white px-4 py-3 rounded-xl font-medium shadow-md">
+                <i class="fas fa-lock"></i> Acceso Funcionarios
+            </a>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="bg-gradient-to-r from-cesfam-blue to-blue-800 text-white py-16 lg:py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')] opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">Sectores y Cobertura Territorial</h1>
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto">Conoce nuestra red de establecimientos de salud distribuidos a lo largo de la comuna de Futrono para estar más cerca de ti.</p>
+        </div>
+    </header>
+
+    <main class="flex-grow py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Red de atención -->
+            <div class="mb-16">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-cesfam-blue text-xl">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h2 class="text-3xl font-heading font-bold text-slate-900">Nuestra Red de Atención</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- CESFAM -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group">
+                        <div class="h-2 bg-cesfam-blue"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-heading text-slate-800 mb-2">CESFAM Base</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Centro de Salud Familiar Principal</p>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check text-cesfam-green mt-1"></i>
+                                    <span class="font-medium text-slate-700">Belarmina Paredes (Futrono)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- CECOSF -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group">
+                        <div class="h-2 bg-purple-500"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-heading text-slate-800 mb-2">CECOSF</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Centro Comunitario de Salud Familiar</p>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check text-purple-500 mt-1"></i>
+                                    <span class="font-medium text-slate-700">CECOSF Nontuelá</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Postas y Estaciones -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group">
+                        <div class="h-2 bg-cesfam-green"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-heading text-slate-800 mb-2">Salud Rural</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Cobertura en zonas alejadas</p>
+                            <div class="flex gap-2">
+                                <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">5 Postas</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">3 Estaciones</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado Detallado Rural -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <!-- PSR -->
+                <div>
+                    <h3 class="text-2xl font-heading font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <i class="fas fa-house-medical text-cesfam-green"></i> Postas de Salud Rural (PSR)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-green-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">PSR Loncopán</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-green-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">PSR Llifén</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-green-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">PSR Isla Huapi</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-green-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">PSR Maihue</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-green-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">PSR Arquilhue</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMR -->
+                <div>
+                    <h3 class="text-2xl font-heading font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <i class="fas fa-briefcase-medical text-orange-500"></i> Estaciones Médico Rural (EMR)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-orange-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">EMR Curriñe</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-orange-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">EMR Chabranco</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-orange-300 transition-colors">
+                            <span class="font-medium text-lg text-slate-700">EMR Hueinahue</span>
+                            <i class="fas fa-chevron-right text-slate-300"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-6">
+                        <h4 class="font-bold text-cesfam-blue mb-2 flex items-center gap-2"><i class="fas fa-info-circle"></i> Rondas Médicas</h4>
+                        <p class="text-sm text-slate-700">Los horarios y fechas de rondas médicas para cada posta y estación rural son coordinados mensualmente. Puedes consultar las fechas actualizadas en nuestro panel de avisos o llamando a SOME.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa de Sectores (Google My Maps) -->
+            <div class="bg-white rounded-3xl overflow-hidden relative border border-slate-200 shadow-lg" style="height: 500px;">
+                <iframe 
+                    src="https://www.google.com/maps/d/u/1/embed?mid=1tsEOdh4VnXvFdrxLBGvOmFy8RvvJbJk&ehbc=2E312F" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Simple (se puede unificar luego) -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+        <p>&copy; 2026 CESFAM Belarmina Paredes - Futrono. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

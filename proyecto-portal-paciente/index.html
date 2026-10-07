@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - CESFAM Belarmina Paredes | Futrono</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cesfam: {
+                            blue: '#005baa',
+                            green: '#00a650',
+                            light: '#f0f9ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 bg-slate-50 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="logo.png" alt="Logo CESFAM" class="h-16 w-auto object-contain">
+                    <div class="flex flex-col hidden sm:flex">
+                        <span class="text-xl font-heading font-bold text-cesfam-blue leading-tight">CESFAM</span>
+                        <span class="text-sm font-heading font-semibold text-cesfam-green leading-tight">Belarmina Paredes</span>
+                    </div>
+                </a>
+
+                <!-- Botón Menú Móvil -->
+                <button id="nav-toggle" class="md:hidden text-2xl text-slate-600 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Menú Desktop -->
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors border-b-2 border-cesfam-blue pb-1">Inicio</a>
+                    <a href="institucion.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Institución</a>
+                    <a href="servicios.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Servicios</a>
+                    <a href="sectores.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">Sectores</a>
+                    
+                    <a href="oirs.html" class="text-slate-600 hover:text-cesfam-blue font-medium transition-colors">OIRS</a>
+                    
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                        <a href="login.html" class="flex items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 text-white px-5 py-2.5 rounded-full font-medium hover:from-teal-600 hover:to-teal-700 transition-all shadow-md transform hover:-translate-y-0.5">
+                            <i class="fas fa-user"></i> Portal Pacientes
+                        </a>
+                        <!-- Botón Intranet -->
+                        <a href="https://intranet.cesfamfutrono.net" class="flex items-center gap-2 text-slate-500 hover:text-cesfam-blue px-3 py-2 text-sm font-medium transition-colors" title="Acceso Exclusivo Funcionarios">
+                            <i class="fas fa-lock"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menú Móvil (Oculto por defecto) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 shadow-lg absolute w-full z-40">
+        <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+            <a href="index.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Inicio</a>
+            <a href="institucion.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Institución</a>
+            <a href="servicios.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Servicios</a>
+            <a href="sectores.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">Sectores</a>
+            <a href="oirs.html" class="block px-3 py-3 text-slate-700 font-medium border-b border-slate-100">OIRS</a>
+            
+            <div class="mt-4 flex flex-col gap-3">
+                <a href="login.html" class="flex justify-center items-center gap-2 bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-3 rounded-xl font-medium shadow-md">
+                    <i class="fas fa-user"></i> Portal Pacientes
+                </a>
+                <a href="https://intranet.cesfamfutrono.net" class="flex justify-center items-center gap-2 bg-slate-100 text-slate-600 px-4 py-3 rounded-xl font-medium shadow-sm">
+                    <i class="fas fa-lock"></i> Acceso Funcionarios
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <main class="flex-grow">
+        <!-- Banner Principal -->
+        <section id="inicio" class="relative bg-white overflow-hidden">
+            <!-- Patrón de fondo sutil -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNlMmU4ZjAiLz48L3N2Zz4=')] opacity-50"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-20 pb-24 lg:pt-32 lg:pb-36 flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 text-center lg:text-left z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-cesfam-blue font-semibold text-sm mb-6 border border-blue-100">
+                        <i class="fas fa-heartbeat animate-pulse text-cesfam-green"></i> Salud Pública de Calidad
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-slate-900 leading-tight mb-6 tracking-tight">
+                        Cuidando la salud de <span class="text-transparent bg-clip-text bg-gradient-to-r from-cesfam-blue to-cesfam-green">nuestra comunidad</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0">
+                        El Centro de Salud Familiar Belarmina Paredes de Futrono está comprometido con entregar atención digna, oportuna e integral a todos nuestros usuarios.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#servicios" class="bg-cesfam-green text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-600 transition-colors shadow-lg shadow-green-200">
+                            Ver Servicios
+                        </a>
+                        <a href="#contacto" class="bg-white text-slate-700 border-2 border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-colors">
+                            Información de Contacto
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Foto real del CESFAM -->
+                <div class="w-full lg:w-1/2 relative hidden md:block">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cesfam-blue to-cesfam-green rounded-[3rem] transform rotate-3 opacity-20"></div>
+                    <div class="bg-white p-2 rounded-[3rem] shadow-2xl relative z-10 border border-slate-100">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden">
+                            <img src="cesfam-fachada.jpg" alt="Fachada CESFAM Belarmina Paredes, Futrono" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios Rápidos -->
+        <section id="servicios" class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">Cartera de Servicios</h2>
+                    <div class="w-20 h-1 bg-cesfam-green mx-auto rounded-full mb-6"></div>
+                    <p class="text-slate-600 text-lg">Conoce las prestaciones médicas y programas de apoyo disponibles para ti y tu familia.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
+                        <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-2xl text-cesfam-blue mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 font-heading">Medicina General</h3>
+                        <p class="text-slate-600 leading-relaxed">Atención médica ambulatoria para diagnóstico, tratamiento y derivación de enfermedades comunes.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
+                        <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-2xl text-cesfam-green mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 font-heading">Salud Dental</h3>
+                        <p class="text-slate-600 leading-relaxed">Prevención, diagnóstico y tratamiento odontológico para mantener tu salud bucal al día.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
+                        <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center text-2xl text-purple-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 font-heading">Salud Mental</h3>
+                        <p class="text-slate-600 leading-relaxed">Apoyo psicológico, evaluaciones y contención emocional brindada por nuestro equipo integral.</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
+                        <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center text-2xl text-red-500 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-pills"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 font-heading">Farmacia</h3>
+                        <p class="text-slate-600 leading-relaxed">Entrega de medicamentos para tratamientos agudos y programas de crónicos.</p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
+                        <div class="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center text-2xl text-orange-500 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 font-heading">Programa Infantil</h3>
+                        <p class="text-slate-600 leading-relaxed">Control sano, vacunación y seguimiento del desarrollo psicomotor de niños y niñas.</p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
+                        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-2xl text-teal-600 mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-apple-whole"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-3 font-heading">Nutrición (PNAC/PACAM)</h3>
+                        <p class="text-slate-600 leading-relaxed">Asesoría nutricional y entrega de alimentos complementarios para grupos prioritarios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA OIRS / Reclamos -->
+        <section class="py-16 bg-cesfam-blue relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')] opacity-10"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="text-white">
+                    <h2 class="text-3xl font-heading font-bold mb-2">Oficina de Informaciones, Reclamos y Sugerencias (OIRS)</h2>
+                    <p class="text-blue-100 text-lg">Su opinión nos ayuda a mejorar. Ingrese sus consultas, felicitaciones o reclamos.</p>
+                </div>
+                <a href="#" class="shrink-0 bg-white text-cesfam-blue px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg">
+                    Ingresar a OIRS <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-slate-900 text-slate-300 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Info CESFAM -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-6 opacity-50 grayscale">
+                        <img src="logo.png" alt="Logo" class="h-12 w-auto">
+                        <div class="flex flex-col">
+                            <span class="text-xl font-heading font-bold text-white leading-tight">CESFAM</span>
+                            <span class="text-sm font-heading font-semibold text-white leading-tight">Belarmina Paredes</span>
+                        </div>
+                    </div>
+                    <p class="mb-6 max-w-md">Brindando atención primaria de salud integral, familiar y comunitaria a todos los habitantes de la comuna de Futrono.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cesfam-blue hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cesfam-blue hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Contacto -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-heading text-lg">Contacto y Call Center</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-location-dot mt-1 text-cesfam-green"></i>
+                            <span>Balmaceda S/N, Futrono<br>Región de Los Ríos</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone text-cesfam-green"></i>
+                            <span class="font-bold text-lg text-yellow-400">600 401 00 67</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-slate-400">
+                            <i class="fas fa-info-circle text-slate-500"></i>
+                            <span>Call Center desde las 08:00 AM</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Horarios -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-heading text-lg">Apertura CESFAM</h4>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between border-b border-slate-800 pb-2">
+                            <span>Lunes a Viernes</span>
+                            <span class="text-white">07:00 - 21:00</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-800 pb-2">
+                            <span>Sábado</span>
+                            <span class="text-white">09:00 - 14:00</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-800 pb-2">
+                            <span class="text-blue-400 font-medium">Entrega de Horas</span>
+                            <span class="text-white">08:00 - 20:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="text-blue-400 font-medium">Sábados (Horas)</span>
+                            <span class="text-white">09:00 - 13:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm">&copy; 2026 CESFAM Belarmina Paredes. Todos los derechos reservados.</p>
+                <div class="text-sm space-x-4">
+                    <a href="https://intranet.cesfamfutrono.net" class="hover:text-white transition-colors">Portal Funcionarios</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

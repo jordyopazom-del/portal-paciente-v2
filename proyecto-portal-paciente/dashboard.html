@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Panel - Portal Paciente CESFAM Futrono</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cesfam: {
+                            blue: '#005baa',
+                            green: '#00a650',
+                            light: '#f0f9ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar del Portal -->
+    <nav class="bg-cesfam-blue text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo y Título -->
+                <div class="flex items-center gap-3">
+                    <img src="logo.png" alt="Logo CESFAM" class="h-10 w-auto bg-white p-1 rounded-lg">
+                    <span class="font-heading font-bold text-lg hidden sm:block">Portal Paciente</span>
+                </div>
+
+                <!-- Menú Usuario -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex flex-col items-end mr-2">
+                        <span class="text-sm font-bold leading-tight">Juan Pérez González</span>
+                        <span class="text-xs text-blue-200 leading-tight">RUT: 12.345.678-9</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-blue-700 border-2 border-blue-400 flex items-center justify-center text-lg font-bold">
+                        JP
+                    </div>
+                    <div class="border-l border-blue-700 h-8 mx-2"></div>
+                    <a href="index.html" class="text-blue-100 hover:text-white flex items-center gap-2 text-sm transition-colors" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i> <span class="hidden sm:inline">Salir</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Saludo -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-heading font-bold text-slate-900">Hola, Juan 👋</h1>
+            <p class="text-slate-600 mt-1">Bienvenido a tu portal personal de salud. ¿Qué necesitas revisar hoy?</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Columna Izquierda (Resultados y OIRS) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- 1. Mis Exámenes -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h2 class="text-xl font-heading font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fas fa-flask text-cesfam-blue"></i> Mis Exámenes de Laboratorio
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <!-- Tabla de exámenes -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-slate-200 text-sm text-slate-500">
+                                        <th class="pb-3 font-medium">Fecha</th>
+                                        <th class="pb-3 font-medium">Tipo de Examen</th>
+                                        <th class="pb-3 font-medium">Estado</th>
+                                        <th class="pb-3 font-medium text-right">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm">
+                                    <tr class="border-b border-slate-100 hover:bg-slate-50">
+                                        <td class="py-4 font-medium text-slate-800">12 Oct 2026</td>
+                                        <td class="py-4 text-slate-600">Perfil Bioquímico y Hemograma</td>
+                                        <td class="py-4">
+                                            <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-xs font-medium bg-green-100 text-green-800">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Listo
+                                            </span>
+                                        </td>
+                                        <td class="py-4 text-right">
+                                            <button class="text-cesfam-blue hover:text-blue-800 font-medium flex items-center justify-end gap-1 w-full" onclick="alert('Descargando PDF del examen...')">
+                                                <i class="fas fa-download"></i> Descargar PDF
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="py-4 font-medium text-slate-800">05 Sep 2026</td>
+                                        <td class="py-4 text-slate-600">Examen Orina Completa</td>
+                                        <td class="py-4">
+                                            <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-xs font-medium bg-green-100 text-green-800">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Listo
+                                            </span>
+                                        </td>
+                                        <td class="py-4 text-right">
+                                            <button class="text-cesfam-blue hover:text-blue-800 font-medium flex items-center justify-end gap-1 w-full">
+                                                <i class="fas fa-download"></i> Descargar PDF
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Mis Solicitudes (OIRS) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h2 class="text-xl font-heading font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fas fa-envelope-open-text text-cesfam-green"></i> Mis Solicitudes (OIRS)
+                        </h2>
+                        <button class="text-sm bg-cesfam-green hover:bg-green-700 text-white px-3 py-1.5 rounded-lg transition-colors font-medium shadow-sm">
+                            + Nueva Solicitud
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center py-8 text-slate-500">
+                            <i class="fas fa-check-circle text-4xl text-slate-200 mb-3"></i>
+                            <p>No tienes solicitudes OIRS pendientes.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Columna Derecha (Avisos y Accesos Directos) -->
+            <div class="space-y-8">
+                
+                <!-- Accesos Directos (TeleSalud) -->
+                <div class="bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl shadow-sm p-8 text-white text-center">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
+                        <i class="fas fa-laptop-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-heading mb-3">¿Necesitas atención médica?</h3>
+                    <p class="text-teal-50 mb-6 leading-relaxed">Solicita tu hora, revisa recetas o haz consultas generales directamente a través de la plataforma nacional TeleSalud.</p>
+                    <a href="https://telesalud.gob.cl/" target="_blank" class="block bg-white text-teal-700 font-bold py-3.5 rounded-xl hover:bg-teal-50 transition-colors shadow-sm text-lg">
+                        Ir a TeleSalud <i class="fas fa-external-link-alt text-sm ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Tarjeta de Ayuda -->
+                <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+                    <h3 class="font-bold text-cesfam-blue mb-2 flex items-center gap-2">
+                        <i class="fas fa-info-circle"></i> ¿Cómo funciona el portal?
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-3">
+                        Aquí aparecerán automáticamente los resultados de tus exámenes de laboratorio una vez que estén procesados. También puedes hacer seguimiento a tus reclamos o sugerencias ingresadas en nuestra OIRS.
+                    </p>
+                    <p class="text-sm text-slate-600 font-medium">
+                        Para consultas urgentes, llama a nuestro Call Center: <span class="text-slate-800 font-bold">600 401 00 67</span>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
