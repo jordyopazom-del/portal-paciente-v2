@@ -81,74 +81,36 @@
             <!-- Columna Izquierda (Resultados y OIRS) -->
             <div class="lg:col-span-2 space-y-8">
                 
-                <!-- 1. Mis Exámenes -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                         <h2 class="text-xl font-heading font-bold text-slate-800 flex items-center gap-2">
                             <i class="fas fa-flask text-cesfam-blue"></i> Mis Exámenes de Laboratorio
                         </h2>
+                        <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-xs font-semibold bg-amber-100 text-amber-800">
+                            <i class="fas fa-hammer"></i> En construcción
+                        </span>
                     </div>
                     <div class="p-6">
-                        <!-- Tabla de exámenes -->
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="border-b border-slate-200 text-sm text-slate-500">
-                                        <th class="pb-3 font-medium">Fecha</th>
-                                        <th class="pb-3 font-medium">Tipo de Examen</th>
-                                        <th class="pb-3 font-medium">Estado</th>
-                                        <th class="pb-3 font-medium text-right">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-sm">
-                                    <tr class="border-b border-slate-100 hover:bg-slate-50">
-                                        <td class="py-4 font-medium text-slate-800">12 Oct 2026</td>
-                                        <td class="py-4 text-slate-600">Perfil Bioquímico y Hemograma</td>
-                                        <td class="py-4">
-                                            <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-xs font-medium bg-green-100 text-green-800">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Listo
-                                            </span>
-                                        </td>
-                                        <td class="py-4 text-right">
-                                            <button class="text-cesfam-blue hover:text-blue-800 font-medium flex items-center justify-end gap-1 w-full" onclick="alert('Descargando PDF del examen...')">
-                                                <i class="fas fa-download"></i> Descargar PDF
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-slate-50">
-                                        <td class="py-4 font-medium text-slate-800">05 Sep 2026</td>
-                                        <td class="py-4 text-slate-600">Examen Orina Completa</td>
-                                        <td class="py-4">
-                                            <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-xs font-medium bg-green-100 text-green-800">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Listo
-                                            </span>
-                                        </td>
-                                        <td class="py-4 text-right">
-                                            <button class="text-cesfam-blue hover:text-blue-800 font-medium flex items-center justify-end gap-1 w-full">
-                                                <i class="fas fa-download"></i> Descargar PDF
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="text-center py-6 text-slate-500">
+                            <i class="fas fa-person-digging text-4xl text-slate-300 mb-3"></i>
+                            <p class="max-w-md mx-auto">Estamos preparando esta sección. Pronto podrás solicitar y revisar tus exámenes desde aquí. Mientras tanto, puedes retirarlos en el SOME del CESFAM.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. Mis Solicitudes (OIRS) -->
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                         <h2 class="text-xl font-heading font-bold text-slate-800 flex items-center gap-2">
                             <i class="fas fa-envelope-open-text text-cesfam-green"></i> Mis Solicitudes (OIRS)
                         </h2>
-                        <button class="text-sm bg-cesfam-green hover:bg-green-700 text-white px-3 py-1.5 rounded-lg transition-colors font-medium shadow-sm">
-                            + Nueva Solicitud
-                        </button>
+                        <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-md text-xs font-semibold bg-amber-100 text-amber-800">
+                            <i class="fas fa-hammer"></i> En construcción
+                        </span>
                     </div>
                     <div class="p-6">
-                        <div class="text-center py-8 text-slate-500">
-                            <i class="fas fa-check-circle text-4xl text-slate-200 mb-3"></i>
-                            <p>No tienes solicitudes OIRS pendientes.</p>
+                        <div class="text-center py-6 text-slate-500">
+                            <i class="fas fa-person-digging text-4xl text-slate-300 mb-3"></i>
+                            <p class="max-w-md mx-auto">Estamos preparando esta sección. Pronto podrás ingresar reclamos, sugerencias y solicitudes, y hacerles seguimiento desde aquí. Mientras tanto, visita la página de <a href="oirs.html" class="text-cesfam-blue font-semibold underline">OIRS</a> para conocer cómo contactarnos.</p>
                         </div>
                     </div>
                 </div>
