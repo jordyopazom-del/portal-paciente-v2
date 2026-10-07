@@ -64,55 +64,25 @@
         <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
             <div class="p-8">
                 
-                <!-- Botón ClaveÚnica -->
-                <button id="btn-claveunica" class="w-full bg-claveunica-blue hover:bg-claveunica-hover text-white rounded-xl py-3 px-4 font-semibold text-lg flex items-center justify-center gap-3 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-claveunica-blue">
-                    <img src="https://accounts.claveunica.gob.cl/assets/img/iconos/cu.svg" alt="Icono ClaveÚnica" class="h-6 w-auto invert">
+                <!-- Aviso: módulo en construcción -->
+                <div class="mb-5 bg-amber-50 border border-amber-200 rounded-xl p-4 text-center" role="status">
+                    <p class="font-heading font-bold text-amber-900 flex items-center justify-center gap-2">
+                        <i class="fas fa-person-digging"></i> Módulo en construcción
+                    </p>
+                    <p class="text-sm text-amber-800 mt-1">
+                        Estamos preparando el ingreso al portal. Muy pronto podrás entrar con tu ClaveÚnica para solicitar tus exámenes y hacer seguimiento a tus solicitudes OIRS.
+                    </p>
+                    <p class="text-sm text-amber-800 mt-2">
+                        Mientras tanto, para consultas y trámites comunícate al Call Center <strong>600 401 00 67</strong> o acude al SOME del CESFAM.
+                    </p>
+                </div>
+
+                <!-- Botón ClaveÚnica (desactivado hasta que el módulo esté listo) -->
+                <button id="btn-claveunica" type="button" disabled aria-disabled="true" class="w-full bg-slate-300 text-slate-500 rounded-xl py-3 px-4 font-semibold text-lg flex items-center justify-center gap-3 cursor-not-allowed">
+                    <i class="fas fa-key" aria-hidden="true"></i>
                     <span>Ingresar con ClaveÚnica</span>
                 </button>
-
-                <div class="mt-4 bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-blue-800 text-center">
-                    <i class="fas fa-shield-alt mr-1"></i> Forma de acceso recomendada y segura.
-                </div>
-
-                <!-- Divisor -->
-                <div class="relative my-8">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-slate-200"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white text-slate-400 font-medium">O usa tu acceso local</span>
-                    </div>
-                </div>
-
-                <!-- Formulario RUT (Alternativo/Fallback) -->
-                <form id="login-form" class="space-y-5">
-                    <div>
-                        <label for="rut" class="block text-sm font-medium text-slate-700 mb-1">RUT</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-id-card text-slate-400"></i>
-                            </div>
-                            <input type="text" id="rut" name="rut" placeholder="12.345.678-9" class="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cesfam-blue focus:border-cesfam-blue transition-colors text-slate-900 bg-slate-50 focus:bg-white" required>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex items-center justify-between mb-1">
-                            <label for="password" class="block text-sm font-medium text-slate-700">Contraseña</label>
-                            <a href="#" class="text-xs font-medium text-cesfam-blue hover:text-blue-800">¿Olvidaste tu clave?</a>
-                        </div>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-lock text-slate-400"></i>
-                            </div>
-                            <input type="password" id="password" name="password" placeholder="••••••••" class="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cesfam-blue focus:border-cesfam-blue transition-colors text-slate-900 bg-slate-50 focus:bg-white" required>
-                        </div>
-                    </div>
-
-                    <button type="button" onclick="window.location.href='dashboard.html'" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-3 px-4 rounded-xl transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900">
-                        Ingresar
-                    </button>
-                </form>
+                <p class="mt-2 text-center text-xs text-slate-500">Disponible próximamente</p>
 
             </div>
             
