@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-slate-50 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-50 font-sans min-h-screen flex flex-col" style="visibility:hidden">
 
     <!-- Navbar del Portal -->
     <nav class="bg-cesfam-blue text-white shadow-md sticky top-0 z-50">
@@ -52,16 +52,16 @@
                 <!-- Menú Usuario -->
                 <div class="flex items-center gap-4">
                     <div class="hidden md:flex flex-col items-end mr-2">
-                        <span class="text-sm font-bold leading-tight">Juan Pérez González</span>
-                        <span class="text-xs text-blue-200 leading-tight">RUT: 12.345.678-9</span>
+                        <span id="user-fullname" class="text-sm font-bold leading-tight">Usuario ClaveÚnica</span>
+                        <span id="user-rut" class="text-xs text-blue-200 leading-tight">RUT: --</span>
                     </div>
-                    <div class="w-10 h-10 rounded-full bg-blue-700 border-2 border-blue-400 flex items-center justify-center text-lg font-bold">
-                        JP
+                    <div id="user-avatar" class="w-10 h-10 rounded-full bg-blue-700 border-2 border-blue-400 flex items-center justify-center text-sm font-bold">
+                        CU
                     </div>
                     <div class="border-l border-blue-700 h-8 mx-2"></div>
-                    <a href="index.html" class="text-blue-100 hover:text-white flex items-center gap-2 text-sm transition-colors" title="Cerrar Sesión">
+                    <button id="btn-logout" class="text-blue-100 hover:text-white flex items-center gap-2 text-sm transition-colors" title="Cerrar Sesión">
                         <i class="fas fa-sign-out-alt"></i> <span class="hidden sm:inline">Salir</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
         
         <!-- Saludo -->
         <div class="mb-8">
-            <h1 class="text-3xl font-heading font-bold text-slate-900">Hola, Juan 👋</h1>
+            <h1 class="text-3xl font-heading font-bold text-slate-900">Hola, <span id="greeting-name">Paciente</span> 👋</h1>
             <p class="text-slate-600 mt-1">Bienvenido a tu portal personal de salud. ¿Qué necesitas revisar hoy?</p>
         </div>
 
@@ -188,5 +188,40 @@
         </div>
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Preguntamos al servidor quién es el usuario (cookie de sesión segura).
+            // Sin sesión válida, se envía al login.
+            let usuario;
+            try {
+                const resp = await fetch('/api/auth/me', { credentials: 'same-origin' });
+                if (!resp.ok) throw new Error('Sin sesión');
+                usuario = await resp.json();
+            } catch (e) {
+                window.location.replace('login.html');
+                return;
+            }
+
+            const nombre = `${usuario.nombre} ${usuario.apellidos || ''}`.trim();
+            const primerNombre = usuario.nombre.trim().split(' ')[0];
+            document.getElementById('greeting-name').textContent = primerNombre;
+            document.getElementById('user-fullname').textContent = nombre;
+            document.getElementById('user-rut').textContent = `RUT: ${usuario.rut}`;
+
+            const partes = nombre.split(' ');
+            const iniciales = partes.length >= 2
+                ? (usuario.nombre[0] + (usuario.apellidos || partes[1])[0]).toUpperCase()
+                : primerNombre.substring(0, 2).toUpperCase();
+            document.getElementById('user-avatar').textContent = iniciales;
+
+            document.body.style.visibility = 'visible';
+
+            // Cerrar sesión
+            document.getElementById('btn-logout').addEventListener('click', async () => {
+                try { await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch (e) {}
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
 </body>
 </html>

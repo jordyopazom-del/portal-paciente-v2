@@ -1,8 +1,19 @@
+const crypto = require("crypto");
+const { SESSION_COOKIE, STATE_COOKIE, SESSION_HORAS, crearSesion, leerCookies, cookie } = require("../_session");
+
 module.exports = async function handler(req, res) {
     const { code, state } = req.query;
 
-    if (!code) {
+    if (!code || !state) {
         return res.status(400).send("No se recibió el código de autorización.");
+    }
+
+    // Verificar que quien vuelve es el mismo que inició el ingreso
+    const stateGuardado = leerCookies(req)[STATE_COOKIE];
+    const a = Buffer.from(String(state));
+    const b = Buffer.from(String(stateGuardado || ""));
+    if (!stateGuardado || a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
+        return res.status(400).send("Ingreso inválido o expirado. Vuelve a intentarlo desde el portal.");
     }
 
     const clientId = process.env.CLAVEUNICA_CLIENT_ID;
@@ -13,9 +24,7 @@ module.exports = async function handler(req, res) {
         // 1. Cambiar el código por el Access Token
         const tokenResponse = await fetch("https://accounts.claveunica.gob.cl/openid/token/", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({
                 client_id: clientId,
                 client_secret: clientSecret,
@@ -27,44 +36,40 @@ module.exports = async function handler(req, res) {
         });
 
         if (!tokenResponse.ok) {
-            console.error("Error obteniendo token:", await tokenResponse.text());
+            console.error("Error obteniendo token de ClaveÚnica. Estado HTTP:", tokenResponse.status);
             return res.status(500).send("Error al comunicarse con ClaveÚnica (Token)");
         }
 
-        const tokenData = await tokenResponse.json();
-        const accessToken = tokenData.access_token;
+        const { access_token } = await tokenResponse.json();
 
-        // 2. Obtener información del usuario (RUT y Nombre)
+        // 2. Obtener RUT y nombre del usuario
         const userInfoResponse = await fetch("https://accounts.claveunica.gob.cl/openid/userinfo/", {
             method: "POST",
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
-            }
+            headers: { "Authorization": `Bearer ${access_token}` }
         });
 
         if (!userInfoResponse.ok) {
-            console.error("Error obteniendo userInfo:", await userInfoResponse.text());
+            console.error("Error obteniendo userInfo de ClaveÚnica. Estado HTTP:", userInfoResponse.status);
             return res.status(500).send("Error al obtener datos del usuario desde ClaveÚnica");
         }
 
         const userInfo = await userInfoResponse.json();
 
-        // Extraemos los datos útiles para mostrar en consola de Vercel
-        const rut = userInfo.RolUnico.numero;
-        const dv = userInfo.RolUnico.DV;
-        const nombres = userInfo.name.nombres.join(" ");
-        const apellidos = userInfo.name.apellidos.join(" ");
+        // 3. Crear la sesión firmada. El RUT NO se escribe en logs ni en la URL.
+        const sesion = crearSesion({
+            rut: `${userInfo.RolUnico.numero}-${userInfo.RolUnico.DV}`,
+            nombre: userInfo.name.nombres.join(" "),
+            apellidos: userInfo.name.apellidos.join(" ")
+        });
 
-        console.log(`Ingreso exitoso: ${nombres} ${apellidos} (RUT: ${rut}-${dv})`);
-
-        // 3. Crear una sesión (Por ahora redirigiremos simulando éxito)
-        // En el futuro aquí conectaremos a Firebase: `firebase.auth().createCustomToken(rut)`
-        
-        // Redirigir al dashboard indicando éxito (en la vida real se usa una cookie HTTP-only o un custom token)
-        res.redirect(`/dashboard.html?rut=${rut}&nombre=${encodeURIComponent(nombres)}`);
+        res.setHeader("Set-Cookie", [
+            cookie(SESSION_COOKIE, sesion, SESSION_HORAS * 3600),
+            cookie(STATE_COOKIE, "", 0)
+        ]);
+        res.redirect("/dashboard.html");
 
     } catch (error) {
-        console.error("Error en el flujo de ClaveÚnica:", error);
+        console.error("Error en el flujo de ClaveÚnica:", error.message);
         res.status(500).send("Ocurrió un error inesperado durante la autenticación.");
     }
-}
+};
