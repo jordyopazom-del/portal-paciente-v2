@@ -19,10 +19,12 @@ module.exports = async function handler(req, res) {
         res.status(200).json({
             numero: s.numero,
             tipo: s.tipo,
-            materia: s.materia,
+            materia: s.materia || "",
+            unidad: s.unidad || "",
             asunto: s.asunto,
             descripcion: s.descripcion,
             solicita: s.solicita || "",
+            formaRespuesta: s.formaRespuesta || "",
             estado: s.estado,
             fecha: aISO(s.fechaRecepcion || s.createdAt),
             respuesta: s.respuesta || "",

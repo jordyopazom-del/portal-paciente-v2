@@ -28,25 +28,45 @@ module.exports = async function handler(req, res) {
 
         const ahora = new Date();
         const numero = await generarNumero(db, ahora.getFullYear());
+        const hora = `${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}`;
         const ref = await db.collection("oirs_solicitudes").add({
             numero,
             canal: "portal",
             tipo: datos.tipo,
+            unidad: datos.unidad,
             materia: datos.materia,
             asunto: datos.asunto,
             descripcion: datos.descripcion,
             solicita: datos.solicita,
-            reclamante: {
-                nombre: `${sesion.nombre} ${sesion.apellidos || ""}`.trim(),
-                rut: sesion.rut,
+            adjuntos: "",
+            // El nombre y el RUN salen de ClaveÚnica (sesión), nunca del navegador
+            afectado: {
+                nombres: sesion.nombre || "",
+                apellidos: sesion.apellidos || "",
+                nombreSocial: datos.nombreSocial,
+                run: sesion.rut,
+                fechaNac: datos.fechaNac,
+                sexo: datos.sexo,
+                genero: datos.genero,
+                nacionalidad: datos.nacionalidad,
+                puebloOriginario: datos.puebloOriginario,
+                prais: datos.prais,
+                domicilio: datos.domicilio,
+                comuna: datos.comuna,
                 telefono: datos.telefono,
                 correo: datos.correo
             },
-            afectado: null,
+            solicitante: null,
+            formaRespuesta: datos.formaRespuesta,
+            autorizaCorreo: datos.formaRespuesta === "correo",
+            correoRespuesta: datos.formaRespuesta === "correo" ? datos.correo : "",
             rutPaciente: sesion.rut,
             fechaRecepcion: ahora,
+            horaRecepcion: hora,
+            etapa: "recibida",
             estado: "recibida",
             respuesta: "",
+            nota: "",
             creadoPor: "portal",
             createdAt: ahora
         });

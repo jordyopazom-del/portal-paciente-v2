@@ -92,7 +92,8 @@
         }
         window.addEventListener('pageshow', (e) => { if (e.persisted) window.location.reload(); });
 
-        const TIPOS = { reclamo: 'Reclamo', solicitud: 'Solicitud', sugerencia: 'Sugerencia', felicitacion: 'Felicitación' };
+        const TIPOS = { reclamo: 'Reclamo', consulta: 'Consulta', solicitud: 'Solicitud', sugerencia: 'Sugerencia', felicitacion: 'Felicitación' };
+        const FORMAS = { correo: 'por correo electrónico', carta: 'por carta a tu domicilio', retiro: 'retirándola en el CESFAM' };
         const ESTADOS = {
             recibida: ['Recibida', 'bg-slate-100 text-slate-700'],
             en_revision: ['En revisión', 'bg-amber-100 text-amber-800'],
@@ -112,7 +113,7 @@
 
                 document.getElementById('numero').textContent = s.numero;
                 document.getElementById('asunto').textContent = s.asunto;
-                document.getElementById('meta').textContent = `${TIPOS[s.tipo] || s.tipo} · ${s.materia} · Ingresada el ${fecha(s.fecha)}`;
+                document.getElementById('meta').textContent = [TIPOS[s.tipo] || s.tipo, s.unidad, s.materia].filter(Boolean).join(' · ') + ` · Ingresado el ${fecha(s.fecha)}`;
                 document.getElementById('descripcion').textContent = s.descripcion;
                 if (s.solicita) {
                     document.getElementById('solicita').textContent = s.solicita;
@@ -124,7 +125,7 @@
                 badge.className += ' ' + est[1];
                 document.getElementById('respuesta').textContent = s.respuesta
                     ? `${s.respuesta}\n\n(Respondida el ${fecha(s.fechaRespuesta)})`
-                    : 'Aún no hay respuesta. Estamos revisando tu solicitud.';
+                    : `Aún no hay respuesta. Estamos revisando tu requerimiento${FORMAS[s.formaRespuesta] ? ' y te responderemos ' + FORMAS[s.formaRespuesta] : ''}.`;
                 cargando.classList.add('hidden');
                 document.getElementById('contenido').classList.remove('hidden');
             } catch (err) {

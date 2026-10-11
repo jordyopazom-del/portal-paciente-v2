@@ -1,11 +1,12 @@
 // Reglas comunes de OIRS: tipos, validación y número de seguimiento.
 const { SESSION_COOKIE, leerSesion, leerCookies } = require("./_session");
 
-const TIPOS = ["reclamo", "solicitud", "sugerencia", "felicitacion"];
+const TIPOS = ["reclamo", "consulta", "sugerencia", "solicitud", "felicitacion"];
 const MATERIAS = [
     "Trato", "Tiempo de espera", "Información", "Infraestructura",
     "Competencia técnica", "Acceso a la atención", "Otro"
 ];
+const FORMAS = ["correo", "carta", "retiro"];
 const MAX_POR_DIA = 5;
 
 // Devuelve la sesión del paciente o responde 401. Nunca se confía en un RUT enviado por el navegador.
@@ -28,25 +29,46 @@ function limpiarTexto(valor, max) {
     return String(valor ?? "").replace(/\r/g, "").replace(/[ \t]+/g, " ").trim().slice(0, max);
 }
 
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 // Valida lo que escribe el paciente. Devuelve { error } o { datos }.
+// El nombre y el RUT NO se piden: salen de la sesión de ClaveÚnica.
 function validarSolicitud(body) {
     const b = body && typeof body === "object" ? body : {};
     const tipo = limpiar(b.tipo, 20);
     const materia = limpiar(b.materia, 40);
-    const asunto = limpiar(b.asunto, 120);
+    const unidad = limpiar(b.unidad, 100);
     const descripcion = limpiarTexto(b.descripcion, 3000);
+    let asunto = limpiar(b.asunto, 120);
     const solicita = limpiarTexto(b.solicita, 1000);
     const telefono = limpiar(b.telefono, 20);
+    const formaRespuesta = limpiar(b.formaRespuesta, 10);
     const correo = limpiar(b.correo, 100);
+    const domicilio = limpiar(b.domicilio, 160);
+    const comuna = limpiar(b.comuna, 60);
 
     if (!TIPOS.includes(tipo)) return { error: "Selecciona un tipo de solicitud válido." };
-    if (!MATERIAS.includes(materia)) return { error: "Selecciona la materia." };
-    if (asunto.length < 5) return { error: "Escribe un asunto (mínimo 5 letras)." };
+    if (materia && !MATERIAS.includes(materia)) return { error: "La materia seleccionada no es válida." };
     if (descripcion.length < 20) return { error: "Describe lo ocurrido con más detalle (mínimo 20 letras)." };
-    if (correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return { error: "El correo no es válido." };
+    if (!asunto) asunto = descripcion.length > 70 ? descripcion.slice(0, 70).trim() + "…" : descripcion;
+    if (asunto.length < 5) return { error: "Escribe un asunto (mínimo 5 letras)." };
+    if (!FORMAS.includes(formaRespuesta)) return { error: "Indica cómo quieres recibir la respuesta." };
+    if (formaRespuesta === "correo" && !EMAIL.test(correo)) return { error: "Para recibir la respuesta por correo, escribe un correo válido." };
+    if (correo && !EMAIL.test(correo)) return { error: "El correo no es válido." };
+    if (formaRespuesta === "carta" && domicilio.length < 5) return { error: "Para recibir una carta, escribe tu domicilio." };
     if (telefono && !/^[0-9 +()-]{8,20}$/.test(telefono)) return { error: "El teléfono no es válido." };
 
-    return { datos: { tipo, materia, asunto, descripcion, solicita, telefono, correo } };
+    // Datos opcionales que el CESFAM usa para estadística
+    const fechaNac = /^\d{4}-\d{2}-\d{2}$/.test(String(b.fechaNac || "")) ? b.fechaNac : "";
+    const sexo = ["H", "M"].includes(b.sexo) ? b.sexo : "";
+    const genero = ["F", "M", "T"].includes(b.genero) ? b.genero : "";
+    const prais = ["si", "no"].includes(b.prais) ? b.prais : "";
+    const nombreSocial = limpiar(b.nombreSocial, 80);
+    const nacionalidad = limpiar(b.nacionalidad, 60);
+    const puebloOriginario = limpiar(b.puebloOriginario, 60);
+
+    return { datos: { tipo, materia, unidad, asunto, descripcion, solicita, telefono, formaRespuesta, correo, domicilio, comuna,
+        fechaNac, sexo, genero, prais, nombreSocial, nacionalidad, puebloOriginario } };
 }
 
 // Número correlativo por año: OIRS-2026-0001
