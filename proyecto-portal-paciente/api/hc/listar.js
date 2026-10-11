@@ -9,7 +9,7 @@ module.exports = async function handler(req, res) {
 
     try {
         const snap = await getDb().collection("hc_solicitudes").where("rutSolicitante", "==", sesion.rut).get();
-        const lista = snap.docs.map(d => {
+        const lista = snap.docs.filter(d => !d.data().anulada).map(d => {
             const s = d.data();
             return {
                 id: d.id,

@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
     try {
         const doc = await getDb().collection("hc_solicitudes").doc(id).get();
         // Si no existe o es de otra persona, la respuesta es la misma: no se revela nada.
-        if (!doc.exists || doc.data().rutSolicitante !== sesion.rut) {
+        if (!doc.exists || doc.data().rutSolicitante !== sesion.rut || doc.data().anulada) {
             return res.status(404).json({ error: "Solicitud no encontrada." });
         }
         const s = doc.data();
@@ -25,6 +25,7 @@ module.exports = async function handler(req, res) {
             lineas: lineasSolicitud(s),
             fechaLista: aISO(s.fechaLista),
             fechaRetiro: aISO(s.fechaRetiro),
+            fechaVencida: aISO(s.fechaVencida),
             motivoRechazo: s.estado === "rechazada" ? (s.motivoRechazo || "") : ""
         });
     } catch (e) {

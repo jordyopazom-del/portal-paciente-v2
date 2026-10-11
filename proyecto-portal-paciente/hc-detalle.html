@@ -90,7 +90,8 @@
             recibida: ['Recibida', 'bg-slate-100 text-slate-700'],
             lista: ['Lista para retiro', 'bg-blue-100 text-blue-800'],
             retirada: ['Retirada', 'bg-green-100 text-green-800'],
-            rechazada: ['Rechazada', 'bg-red-100 text-red-800']
+            rechazada: ['Rechazada', 'bg-red-100 text-red-800'],
+            vencida: ['Vencida', 'bg-slate-200 text-slate-700']
         };
         const fecha = (iso) => iso ? new Date(iso).toLocaleDateString('es-CL', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
 
@@ -120,11 +121,15 @@
                 if (s.estado === 'lista') {
                     aviso.className += ' bg-blue-50 border-blue-200 text-blue-900';
                     titulo.textContent = 'Tu solicitud está lista para retirar';
-                    texto.textContent = 'Retírala en la Unidad de Archivo, de lunes a viernes de 08:00 a 17:00 hrs. Debes presentar tu carnet de identidad.';
+                    texto.textContent = 'Retírala en la Unidad de Archivo, de lunes a viernes de 08:00 a 17:00 hrs. Debes presentar tu carnet de identidad.' + (s.fechaLista ? ` Tienes plazo hasta el ${fecha(new Date(new Date(s.fechaLista).getTime() + 60 * 86400000).toISOString())}; después deberás solicitarla nuevamente.` : '');
                 } else if (s.estado === 'retirada') {
                     aviso.className += ' bg-green-50 border-green-200 text-green-900';
                     titulo.textContent = 'Solicitud retirada';
                     texto.textContent = s.fechaRetiro ? `Fue retirada el ${fecha(s.fechaRetiro)}.` : 'Esta solicitud ya fue retirada.';
+                } else if (s.estado === 'vencida') {
+                    aviso.className += ' bg-slate-50 border-slate-300 text-slate-800';
+                    titulo.textContent = 'Solicitud vencida';
+                    texto.textContent = 'Esta solicitud no fue retirada dentro del plazo de 60 días y la copia preparada fue eliminada, por lo que ya no puedes retirarla. Si todavía la necesitas, debes solicitarla nuevamente.';
                 } else if (s.estado === 'rechazada') {
                     aviso.className += ' bg-red-50 border-red-200 text-red-900';
                     titulo.textContent = 'Solicitud rechazada';

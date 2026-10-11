@@ -12,7 +12,7 @@ module.exports = async function handler(req, res) {
     try {
         const doc = await getDb().collection("oirs_solicitudes").doc(id).get();
         // Si no existe o es de otra persona, la respuesta es la misma: no se revela nada.
-        if (!doc.exists || doc.data().rutPaciente !== sesion.rut) {
+        if (!doc.exists || doc.data().rutPaciente !== sesion.rut || doc.data().anulada) {
             return res.status(404).json({ error: "Solicitud no encontrada." });
         }
         const s = doc.data();

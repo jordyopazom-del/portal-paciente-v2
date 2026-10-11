@@ -24,6 +24,11 @@ function validarSolicitudHc(body) {
     const b = body && typeof body === "object" ? body : {};
     const telefono = limpiar(b.telefono, 20);
     if (telefono && !/^[0-9 +()-]{8,20}$/.test(telefono)) return { error: "El teléfono no es válido." };
+    const correo = limpiar(b.correo, 100);
+    if (correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return { error: "El correo no es válido." };
+    const avisarPor = ["telefono", "correo", "nada"].includes(b.avisarPor) ? b.avisarPor : "nada";
+    if (avisarPor === "correo" && !correo) return { error: "Para que te avisemos por correo, escribe tu correo." };
+    if (avisarPor === "telefono" && telefono.length < 8) return { error: "Para que te avisemos por teléfono, escribe tu teléfono." };
 
     const f = b.ficha && typeof b.ficha === "object" ? b.ficha : {};
     const modo = ["ninguna", "completa", "parcial"].includes(f.modo) ? f.modo : "ninguna";
@@ -50,7 +55,7 @@ function validarSolicitudHc(body) {
     }
 
     if (modo === "ninguna" && !documentos.length) return { error: "Indica qué necesitas: copia de ficha clínica u otro documento." };
-    return { datos: { telefono, ficha: { modo, desde, hasta }, documentos } };
+    return { datos: { telefono, correo, avisarPor, ficha: { modo, desde, hasta }, documentos } };
 }
 
 function fechaISO(iso) {

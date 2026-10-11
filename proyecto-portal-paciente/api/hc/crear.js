@@ -37,8 +37,10 @@ module.exports = async function handler(req, res) {
             solicitante: {
                 nombre: `${sesion.nombre} ${sesion.apellidos || ""}`.trim(),
                 rut: sesion.rut,
-                telefono: datos.telefono
+                telefono: datos.telefono,
+                correo: datos.correo
             },
+            avisarPor: datos.avisarPor,
             paciente: null,
             rutSolicitante: sesion.rut,
             ficha: datos.ficha,
@@ -47,7 +49,8 @@ module.exports = async function handler(req, res) {
             nota: "",
             fechaRecepcion: ahora,
             creadoPor: "portal",
-            createdAt: ahora
+            createdAt: ahora,
+            historial: [{ fecha: ahora, usuario: "portal", accion: "Ingresada", detalle: "Por el paciente, con ClaveÚnica" }]
         });
 
         res.status(201).json({ id: ref.id, numero });

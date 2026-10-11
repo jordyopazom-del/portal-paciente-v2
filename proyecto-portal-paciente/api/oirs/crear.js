@@ -68,7 +68,8 @@ module.exports = async function handler(req, res) {
             respuesta: "",
             nota: "",
             creadoPor: "portal",
-            createdAt: ahora
+            createdAt: ahora,
+            historial: [{ fecha: ahora, usuario: "portal", accion: "Ingresado", detalle: "Por el paciente, con ClaveÚnica" }]
         });
 
         res.status(201).json({ id: ref.id, numero });
