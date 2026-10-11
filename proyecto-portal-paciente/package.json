@@ -1,0 +1,8 @@
+{
+  "name": "portal-paciente-cesfam",
+  "private": true,
+  "description": "Portal del paciente - CESFAM Belarmina Paredes (Futrono)",
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}

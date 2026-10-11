@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Solicitud de Historia Clínica - CESFAM Futrono</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cesfam: {
+                            blue: '#005baa',
+                            green: '#00a650',
+                            light: '#f0f9ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 font-sans min-h-screen flex flex-col" style="visibility:hidden">
+    <nav class="bg-cesfam-blue text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <img src="logo.png" alt="Logo CESFAM" class="h-10 w-auto bg-white p-1 rounded-lg">
+                    <span class="font-heading font-bold text-lg">Portal Paciente</span>
+                </div>
+                <a href="dashboard.html" class="text-blue-100 hover:text-white flex items-center gap-2 text-sm"><i class="fas fa-arrow-left"></i> Volver a mi panel</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 sm:px-6 py-8">
+        <div id="cargando" class="text-slate-500 text-center py-12">Cargando...</div>
+        <div id="contenido" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <div class="flex flex-wrap justify-between items-start gap-3">
+                    <div>
+                        <p id="numero" class="text-sm font-semibold text-cesfam-blue"></p>
+                        <h1 class="text-2xl font-heading font-bold text-slate-900 mt-1">Solicitud de historia clínica</h1>
+                    </div>
+                    <span id="estado" class="inline-block py-1 px-3 rounded-md text-xs font-semibold"></span>
+                </div>
+                <p id="meta" class="text-sm text-slate-500 mt-2"></p>
+                <h2 class="text-sm font-semibold text-slate-700 mt-5 mb-1">Lo que solicitaste</h2>
+                <ul id="lineas" class="list-disc pl-6 text-slate-700 space-y-1"></ul>
+            </div>
+            <div id="aviso" class="rounded-2xl border p-6"></div>
+        </div>
+        <p id="error" class="hidden text-center text-red-700 py-12" role="alert"></p>
+    </main>
+
+    <script>
+        // Verifica la sesión; sin sesión válida vuelve al login.
+        async function verificarSesion() {
+            try {
+                const resp = await fetch('/api/auth/me', { credentials: 'same-origin' });
+                if (!resp.ok) throw new Error('Sin sesión');
+            } catch (e) {
+                window.location.replace('login.html');
+                return false;
+            }
+            document.body.style.visibility = 'visible';
+            return true;
+        }
+        window.addEventListener('pageshow', (e) => { if (e.persisted) window.location.reload(); });
+
+
+        const ESTADOS = {
+            recibida: ['Recibida', 'bg-slate-100 text-slate-700'],
+            lista: ['Lista para retiro', 'bg-blue-100 text-blue-800'],
+            retirada: ['Retirada', 'bg-green-100 text-green-800'],
+            rechazada: ['Rechazada', 'bg-red-100 text-red-800']
+        };
+        const fecha = (iso) => iso ? new Date(iso).toLocaleDateString('es-CL', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!(await verificarSesion())) return;
+            const id = new URLSearchParams(window.location.search).get('id') || '';
+            const cargando = document.getElementById('cargando');
+            try {
+                const resp = await fetch('/api/hc/detalle?id=' + encodeURIComponent(id), { credentials: 'same-origin' });
+                if (resp.status === 401) { window.location.replace('login.html'); return; }
+                const s = await resp.json();
+                if (!resp.ok) throw new Error(s.error || 'No se pudo cargar la solicitud.');
+
+                document.getElementById('numero').textContent = s.numero;
+                document.getElementById('meta').textContent = `Ingresada el ${fecha(s.fecha)}`;
+                const ul = document.getElementById('lineas');
+                s.lineas.forEach(t => { const li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+
+                const est = ESTADOS[s.estado] || [s.estado, 'bg-slate-100 text-slate-700'];
+                const badge = document.getElementById('estado');
+                badge.textContent = est[0];
+                badge.className += ' ' + est[1];
+
+                const aviso = document.getElementById('aviso');
+                const titulo = document.createElement('p'); titulo.className = 'font-bold';
+                const texto = document.createElement('p'); texto.className = 'mt-1';
+                if (s.estado === 'lista') {
+                    aviso.className += ' bg-blue-50 border-blue-200 text-blue-900';
+                    titulo.textContent = 'Tu solicitud está lista para retirar';
+                    texto.textContent = 'Retírala en la Unidad de Archivo, de lunes a viernes de 08:00 a 17:00 hrs. Debes presentar tu carnet de identidad.';
+                } else if (s.estado === 'retirada') {
+                    aviso.className += ' bg-green-50 border-green-200 text-green-900';
+                    titulo.textContent = 'Solicitud retirada';
+                    texto.textContent = s.fechaRetiro ? `Fue retirada el ${fecha(s.fechaRetiro)}.` : 'Esta solicitud ya fue retirada.';
+                } else if (s.estado === 'rechazada') {
+                    aviso.className += ' bg-red-50 border-red-200 text-red-900';
+                    titulo.textContent = 'Solicitud rechazada';
+                    texto.textContent = s.motivoRechazo || 'Comunícate con el CESFAM para más información.';
+                } else {
+                    aviso.className += ' bg-slate-50 border-slate-200 text-slate-800';
+                    titulo.textContent = 'Estamos preparando tu solicitud';
+                    texto.textContent = 'El plazo máximo de entrega es de 15 días hábiles. Cuando esté lista, te lo indicaremos aquí.';
+                }
+                aviso.append(titulo, texto);
+                cargando.classList.add('hidden');
+                document.getElementById('contenido').classList.remove('hidden');
+            } catch (err) {
+                cargando.classList.add('hidden');
+                const e = document.getElementById('error');
+                e.textContent = err.message;
+                e.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
