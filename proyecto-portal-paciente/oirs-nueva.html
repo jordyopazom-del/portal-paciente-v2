@@ -127,22 +127,25 @@
                 <input id="telefono" type="tel" maxlength="20" class="w-full border border-slate-300 rounded-lg px-3 py-2.5">
             </div>
 
-            <details class="rounded-lg border border-slate-200 p-4">
-                <summary class="cursor-pointer text-sm font-semibold text-slate-700">Datos opcionales para estadística</summary>
-                <p class="text-xs text-slate-500 mt-2 mb-3">Los pide el formulario oficial para fines estadísticos. Puedes dejarlos en blanco.</p>
+            <fieldset class="rounded-lg border border-slate-200 p-4">
+                <legend class="px-1 text-sm font-semibold text-slate-700">Tus datos (obligatorios, para estadística)</legend>
+                <p class="text-xs text-slate-500 mb-3">Los pide el formulario oficial de requerimientos. Si algún dato prefieres no informarlo, elige la opción <strong>"Prefiero no informar"</strong>. Tu respuesta no cambia cómo se atiende tu solicitud.</p>
                 <div class="grid sm:grid-cols-2 gap-4">
-                    <div><label for="nombreSocial" class="block text-sm text-slate-600 mb-1">Nombre social</label><input id="nombreSocial" type="text" maxlength="80" class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
-                    <div><label for="fechaNac" class="block text-sm text-slate-600 mb-1">Fecha de nacimiento</label><input id="fechaNac" type="date" class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
+                    <div><label for="fechaNac" class="block text-sm text-slate-600 mb-1">Fecha de nacimiento</label><input id="fechaNac" type="date" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
+                    <div><label for="nacionalidad" class="block text-sm text-slate-600 mb-1">Nacionalidad</label><input id="nacionalidad" type="text" maxlength="60" value="Chilena" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
                     <div><label for="sexo" class="block text-sm text-slate-600 mb-1">Sexo</label>
-                        <select id="sexo" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white"><option value="">Sin indicar</option><option value="H">Hombre</option><option value="M">Mujer</option></select></div>
+                        <select id="sexo" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white"><option value="">Selecciona...</option><option value="H">Hombre</option><option value="M">Mujer</option><option value="ND">Prefiero no informar</option></select></div>
                     <div><label for="genero" class="block text-sm text-slate-600 mb-1">Género</label>
-                        <select id="genero" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white"><option value="">Sin indicar</option><option value="F">Femenino</option><option value="M">Masculino</option><option value="T">Transgénero</option></select></div>
-                    <div><label for="nacionalidad" class="block text-sm text-slate-600 mb-1">Nacionalidad</label><input id="nacionalidad" type="text" maxlength="60" class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
-                    <div><label for="puebloOriginario" class="block text-sm text-slate-600 mb-1">Pueblo originario</label><input id="puebloOriginario" type="text" maxlength="60" class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
+                        <select id="genero" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white"><option value="">Selecciona...</option><option value="F">Femenino</option><option value="M">Masculino</option><option value="T">Transgénero</option><option value="ND">Prefiero no informar</option></select></div>
+                    <div><label for="puebloOriginario" class="block text-sm text-slate-600 mb-1">Pueblo originario</label>
+                        <select id="puebloOriginario" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white">
+                            <option value="">Selecciona...</option><option>Ninguno</option><option>Mapuche</option><option>Aymara</option><option>Rapa Nui</option><option>Atacameño (Lickanantay)</option><option>Quechua</option><option>Colla</option><option>Diaguita</option><option>Kawésqar</option><option>Yagán (Yámana)</option><option>Chango</option><option>Otro pueblo</option><option>Prefiero no informar</option>
+                        </select></div>
                     <div><label for="prais" class="block text-sm text-slate-600 mb-1">¿Eres usuario(a) PRAIS?</label>
-                        <select id="prais" class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white"><option value="">Sin indicar</option><option value="si">Sí</option><option value="no">No</option></select></div>
+                        <select id="prais" required class="w-full border border-slate-300 rounded-lg px-3 py-2.5 bg-white"><option value="">Selecciona...</option><option value="si">Sí</option><option value="no">No</option></select></div>
+                    <div class="sm:col-span-2"><label for="nombreSocial" class="block text-sm text-slate-600 mb-1">Nombre social <span class="text-slate-500">(solo si corresponde)</span></label><input id="nombreSocial" type="text" maxlength="80" class="w-full border border-slate-300 rounded-lg px-3 py-2.5"></div>
                 </div>
-            </details>
+            </fieldset>
 
             <p id="error" class="hidden text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2" role="alert"></p>
             <button id="enviar" type="submit" class="w-full bg-cesfam-green hover:bg-green-700 text-white font-bold py-3 rounded-xl transition-colors">Enviar requerimiento</button>

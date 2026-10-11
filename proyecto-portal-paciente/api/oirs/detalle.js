@@ -1,8 +1,9 @@
 const { getDb } = require("../_firebase");
-const { exigirSesion, aISO } = require("../_oirs");
+const { exigirSesion, aISO, moduloActivo } = require("../_oirs");
 
 // Muestra una solicitud solo si pertenece al paciente con sesión iniciada.
 module.exports = async function handler(req, res) {
+    if (!moduloActivo(res, "OIRS")) return;
     const sesion = exigirSesion(req, res);
     if (!sesion) return;
 

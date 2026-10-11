@@ -1,10 +1,11 @@
 const { getDb } = require("../_firebase");
-const { exigirSesion, generarNumero } = require("../_oirs");
+const { exigirSesion, generarNumero, moduloActivo } = require("../_oirs");
 const { MAX_POR_DIA, validarSolicitudHc } = require("../_hc");
 
 // Crea una solicitud de historia clínica a nombre del paciente con sesión iniciada.
 // Por el portal solo puede pedir el propio titular: el RUT sale de la sesión, nunca del navegador.
 module.exports = async function handler(req, res) {
+    if (!moduloActivo(res, "HC")) return;
     if (req.method !== "POST") return res.status(405).json({ error: "Método no permitido" });
 
     const sesion = exigirSesion(req, res);

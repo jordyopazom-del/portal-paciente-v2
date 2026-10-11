@@ -187,7 +187,7 @@
                         Aquí aparecerán automáticamente los resultados de tus exámenes de laboratorio una vez que estén procesados. También puedes hacer seguimiento a tus reclamos o sugerencias ingresadas en nuestra OIRS.
                     </p>
                     <p class="text-sm text-slate-600 font-medium">
-                        Para consultas urgentes, llama a nuestro Call Center: <span class="text-slate-800 font-bold">600 401 00 67</span>
+                        Para consultas urgentes, llama a nuestro Call Center: <span class="text-slate-800 font-bold">600 401 0067</span>
                     </p>
                 </div>
 
@@ -201,6 +201,12 @@
         const MODULO_OIRS_ACTIVO = false;
         // INTERRUPTOR: poner en true cuando la solicitud de historia clínica esté autorizada y lista.
         const MODULO_HC_ACTIVO = false;
+
+        // INTERRUPTOR: poner en true cuando la dirección de Logout (https://portal.cesfamfutrono.net)
+        // esté registrada en ClaveÚnica. En true, "Salir" también cierra la sesión de ClaveÚnica.
+        const LOGOUT_CLAVEUNICA = false;
+        const URL_CIERRE_CLAVEUNICA = 'https://accounts.claveunica.gob.cl/api/v1/accounts/app/logout?redirect=' +
+            encodeURIComponent(window.location.origin + '/login.html');
 
         const TIPOS_OIRS = { reclamo: 'Reclamo', consulta: 'Consulta', solicitud: 'Solicitud', sugerencia: 'Sugerencia', felicitacion: 'Felicitación' };
         const ESTADOS_OIRS = {
@@ -341,8 +347,17 @@
 
             // Cerrar sesión
             document.getElementById('btn-logout').addEventListener('click', async () => {
+                // 1) Cierra la sesión del portal
                 try { await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch (e) {}
-                window.location.href = 'login.html';
+                // 2) Cierra también la sesión de ClaveÚnica (exigido en la certificación).
+                //    Debe ser una navegación normal (GET), nunca un popup ni un iframe.
+                if (LOGOUT_CLAVEUNICA) {
+                    window.location.href = URL_CIERRE_CLAVEUNICA;
+                    // Si ClaveÚnica no redirige (dirección de Logout aún no registrada), volvemos al ingreso
+                    setTimeout(() => { window.location.href = 'login.html'; }, 2500);
+                } else {
+                    window.location.href = 'login.html';
+                }
             });
         });
     </script>

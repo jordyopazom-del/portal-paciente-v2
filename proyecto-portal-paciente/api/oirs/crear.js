@@ -1,8 +1,9 @@
 const { getDb } = require("../_firebase");
-const { MAX_POR_DIA, exigirSesion, validarSolicitud, generarNumero } = require("../_oirs");
+const { MAX_POR_DIA, exigirSesion, validarSolicitud, generarNumero, moduloActivo } = require("../_oirs");
 
 // Crea una solicitud OIRS a nombre del paciente que tiene sesión iniciada.
 module.exports = async function handler(req, res) {
+    if (!moduloActivo(res, "OIRS")) return;
     if (req.method !== "POST") return res.status(405).json({ error: "Método no permitido" });
 
     const sesion = exigirSesion(req, res);

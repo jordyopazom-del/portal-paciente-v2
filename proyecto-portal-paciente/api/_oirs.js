@@ -9,6 +9,16 @@ const MATERIAS = [
 const FORMAS = ["correo", "carta", "retiro"];
 const MAX_POR_DIA = 5;
 
+// Interruptor del servidor: las funciones de OIRS y de Historia clínica quedan CERRADAS
+// hasta que en Vercel se defina OIRS_ACTIVO=true / HC_ACTIVO=true.
+// Así, aunque alguien conozca la dirección técnica, no se pueden guardar datos antes de la autorización.
+function moduloActivo(res, nombre) {
+    if (process.env[`${nombre}_ACTIVO`] === "true") return true;
+    res.setHeader("Cache-Control", "no-store");
+    res.status(503).json({ error: "Este módulo todavía no está disponible." });
+    return false;
+}
+
 // Devuelve la sesión del paciente o responde 401. Nunca se confía en un RUT enviado por el navegador.
 function exigirSesion(req, res) {
     res.setHeader("Cache-Control", "no-store");
@@ -58,14 +68,22 @@ function validarSolicitud(body) {
     if (formaRespuesta === "carta" && domicilio.length < 5) return { error: "Para recibir una carta, escribe tu domicilio." };
     if (telefono && !/^[0-9 +()-]{8,20}$/.test(telefono)) return { error: "El teléfono no es válido." };
 
-    // Datos opcionales que el CESFAM usa para estadística
-    const fechaNac = /^\d{4}-\d{2}-\d{2}$/.test(String(b.fechaNac || "")) ? b.fechaNac : "";
-    const sexo = ["H", "M"].includes(b.sexo) ? b.sexo : "";
-    const genero = ["F", "M", "T"].includes(b.genero) ? b.genero : "";
-    const prais = ["si", "no"].includes(b.prais) ? b.prais : "";
-    const nombreSocial = limpiar(b.nombreSocial, 80);
+    // Datos que el formulario oficial exige para estadística: son OBLIGATORIOS.
+    // Como pueden ser sensibles, siempre existe la respuesta "ND" (prefiero no informar).
+    const fechaNac = String(b.fechaNac || "");
+    const hoy = new Date().toISOString().slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fechaNac) || fechaNac > hoy || fechaNac < "1900-01-01") return { error: "Indica tu fecha de nacimiento." };
+    const sexo = limpiar(b.sexo, 2);
+    if (!["H", "M", "ND"].includes(sexo)) return { error: "Indica tu sexo (o \"prefiero no informar\")." };
+    const genero = limpiar(b.genero, 2);
+    if (!["F", "M", "T", "ND"].includes(genero)) return { error: "Indica tu género (o \"prefiero no informar\")." };
     const nacionalidad = limpiar(b.nacionalidad, 60);
+    if (nacionalidad.length < 3) return { error: "Indica tu nacionalidad." };
     const puebloOriginario = limpiar(b.puebloOriginario, 60);
+    if (puebloOriginario.length < 3) return { error: "Indica si perteneces a un pueblo originario (o \"prefiero no informar\")." };
+    const prais = limpiar(b.prais, 2);
+    if (!["si", "no"].includes(prais)) return { error: "Indica si eres usuario(a) PRAIS." };
+    const nombreSocial = limpiar(b.nombreSocial, 80); // opcional: no todas las personas tienen nombre social
 
     return { datos: { tipo, materia, unidad, asunto, descripcion, solicita, telefono, formaRespuesta, correo, domicilio, comuna,
         fechaNac, sexo, genero, prais, nombreSocial, nacionalidad, puebloOriginario } };
@@ -88,4 +106,4 @@ function aISO(valor) {
     return isNaN(d) ? null : d.toISOString();
 }
 
-module.exports = { TIPOS, MATERIAS, MAX_POR_DIA, exigirSesion, validarSolicitud, generarNumero, aISO, limpiar, limpiarTexto };
+module.exports = { TIPOS, MATERIAS, MAX_POR_DIA, moduloActivo, exigirSesion, validarSolicitud, generarNumero, aISO, limpiar, limpiarTexto };
